@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -32,5 +33,10 @@ export class ProductsController {
   @Put(':id')
   update(@Param(':id') id: number, @Body() payload: UpdateProductsDto) {
     return this.productsService.update(id, payload);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: number) {
+    return this.productsService.remove(id);
   }
 }

@@ -1,4 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Brands } from './brands.entity';
 
 @Entity()
 export class Products {
@@ -19,4 +29,22 @@ export class Products {
 
   @Column({ type: 'varchar' })
   image: string;
+
+  @CreateDateColumn({
+    name: 'created_date',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdDate: Date;
+
+  @UpdateDateColumn({
+    name: 'updated_date',
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedDate: Date;
+
+  @ManyToOne(() => Brands, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' })
+  brand: Brands;
 }
