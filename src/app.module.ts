@@ -5,6 +5,7 @@ import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { environments } from './environments';
+import { UsersModule } from './users/users.module';
 import config from './config';
 import configSchema from './configSchema';
 
@@ -18,6 +19,7 @@ import configSchema from './configSchema';
     }),
     ProductsModule,
     DatabaseModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

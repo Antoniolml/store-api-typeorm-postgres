@@ -2,19 +2,26 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToMany,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Products } from './products.entity';
+import { Customers } from './customers.entity';
 
 @Entity()
-export class Categories {
+export class Users {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', length: 255, unique: true })
-  name: string;
+  email: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  password: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  role: string;
 
   @CreateDateColumn({
     name: 'created_date',
@@ -30,6 +37,9 @@ export class Categories {
   })
   updatedDate: Date;
 
-  @ManyToMany(() => Products, (Products) => Products.categories)
-  products: Products[];
+  @OneToOne(() => Customers, (customer) => customer.user, { nullable: true })
+  @JoinColumn({
+    name: 'customer_id',
+  })
+  customers: Customers;
 }

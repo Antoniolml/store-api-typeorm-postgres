@@ -1,20 +1,18 @@
+import { Products } from 'src/products/entity/products.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Products } from './products.entity';
+import { Orders } from './orders.entity';
 
 @Entity()
-export class Categories {
+export class OrderItems {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ type: 'varchar', length: 255, unique: true })
-  name: string;
 
   @CreateDateColumn({
     name: 'created_date',
@@ -30,6 +28,12 @@ export class Categories {
   })
   updatedDate: Date;
 
-  @ManyToMany(() => Products, (Products) => Products.categories)
-  products: Products[];
+  @Column({ type: 'int' })
+  quantity: number;
+
+  @ManyToOne(() => Products)
+  product: Products;
+
+  @ManyToOne(() => Orders, (order) => order.items)
+  order: Orders;
 }
