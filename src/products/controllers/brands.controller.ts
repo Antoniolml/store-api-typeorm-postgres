@@ -21,7 +21,7 @@ export class BrandsController {
   }
 
   @Get(':id')
-  get(@Param('id') id: number) {
+  get(@Param('id', ParseIntPipe) id: number) {
     return this.brandsService.findOne(id);
   }
 
@@ -39,7 +39,7 @@ export class BrandsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.brandsService.remove(id);
   }
 }
